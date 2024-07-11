@@ -198,3 +198,59 @@ class MaxAbsScaler(ScalerMixin):
 
         return arr
 
+class RobustScaler(ScalerMixin):
+    def __init__(self, quantile_range=(25.0, 75.0)):
+        self.quantile_range = quantile_range
+        self.center_ = None
+        self.scale_ = None
+
+    def fit(self, X):
+        X = self._validate_data(X)
+        q_min, q_max = self.quantile_range
+        if not 0 <= q_min < q_max <= 100:
+            raise ValueError("Invalid quantile range: {}".format(self.quantile_range))
+
+        self.center_ = np.nanmedian(X, axis=0)
+        q = np.nanpercentile(X, self.quantile_range, axis=0)
+        self.scale_ = (q[1] - q[0])
+        
+        # Check for features with zero interquartile range
+        zero_scale = self.scale_ == 0
+        if np.any(zero_scale):
+            warnings.warn("Features with zero interquartile range detected. These features will not be scaled.")
+            self.scale_[zero_scale] = 1.0
+
+        return self
+
+    def transform(self, X):
+        X = self._validate_data(X)
+        
+        if self.center_ is None or self.scale_ is None:
+            raise ValueError("RobustScaler has not been fitted. Call 'fit' before using 'transform'.")
+        
+        X_scaled = (X - self.center_) / self.scale_
+        return X_scaled
+
+    def fit_transform(self, X):
+        return self.fit(X).transform(X)
+
+    def _validate_data(self, X):
+        if isinstance(X, pd.DataFrame):
+            numeric_columns = X.select_dtypes(include=[np.number]).columns
+            if len(numeric_columns) == 0:
+                raise ValueError("No numeric columns found in the DataFrame")
+            if len(numeric_columns) != len(X.columns):
+                print("WARNING! Not all columns in the DataFrame are numeric. Non-numeric columns will be skipped.")
+            arr = X[numeric_columns].to_numpy().astype('float64')
+        elif isinstance(X, np.ndarray):
+            arr = X.astype('float64')
+        else:
+            try:
+                arr = np.array(X).astype('float64')
+            except ValueError:
+                raise ValueError("Input data must be convertible to a numpy array of float64")
+
+        if arr.size == 0:
+            raise ValueError("Input data cannot be empty")
+
+        return arr
