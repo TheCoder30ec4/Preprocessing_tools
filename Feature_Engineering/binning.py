@@ -28,8 +28,14 @@ class Binning:
         try:
             self.data[f'{column}_binned'] = pd.cut(self.data[column], bins=bins, labels=labels)
             return self.data
+        except ValueError as e:
+            print(f"Value error occurred: {e}")
+            return self.data
+        except KeyError as e:
+            print(f"Key error occurred: {e}")
+            return self.data
         except Exception as e:
-            print(f"An error occurred while creating bins: {e}")
+            print(f"An unexpected error occurred while creating bins: {e}")
             return self.data
 
     def plot_bins(self, column: str):
@@ -74,4 +80,28 @@ class Binning:
     - Handle plotting errors, such as when the specified column does not exist or is not binned.
     """
 
+"""
+def test_binning():
+    # Create a small demo dataframe
+    data = {
+        'value': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    }
+    df = pd.DataFrame(data)
 
+    # Instantiate the binning class
+    binning = Binning(df)
+
+    # Apply binning
+    binned_df = binning.apply_binning(column='value', bins=3, labels=['Low', 'Medium', 'High'], plot=True)
+
+    # Check if the binned column is created
+    assert f'value_binned' in binned_df.columns, "Binned column not found in the DataFrame."
+
+    # Check if the binned column has the correct number of bins
+    assert binned_df['value_binned'].nunique() == 3, "The number of unique bins is not correct."
+
+    print("All tests passed.")
+
+# Run the test
+test_binning()
+"""
