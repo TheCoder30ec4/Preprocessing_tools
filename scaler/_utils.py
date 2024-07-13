@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 class ScalerMixin:
     def _read_csv(self, path):
