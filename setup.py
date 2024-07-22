@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import codecs
 import os
 
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 DESCRIPTION = 'Data Preprocessing library for Data Science and Machine Learning.'
 LONG_DESCRIPTION = 'A package that provides all the data preprocessing tools important to Data scienece and ML tasks in one place'
 
