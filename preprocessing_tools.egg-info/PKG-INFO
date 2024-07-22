@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: preprocessing_tools
+Version: 0.0.3
+Summary: Data Preprocessing library for Data Science and Machine Learning.
+Author: Antriksh Arya
+Author-email: <antriksh0704@gmail.com>
+Keywords: python,data,preprocessing,data science,data analysis,machine learning
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+Requires-Dist: scikit-learn
+Requires-Dist: numpy
+Requires-Dist: pandas
+
+A package that provides all the data preprocessing tools important to Data scienece and ML tasks in one place
