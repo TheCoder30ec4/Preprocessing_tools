@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import codecs
 import os
 
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 DESCRIPTION = 'Data Preprocessing library for Data Science and Machine Learning.'
 LONG_DESCRIPTION = 'A package that provides all the data preprocessing tools important to Data scienece and ML tasks in one place'
 
@@ -16,7 +16,7 @@ setup(
     long_description_content_type="text/markdown",
     long_description=LONG_DESCRIPTION,
     packages=find_packages(),
-    install_requires=['scikit-learn', 'numpy', 'pandas'],
+    install_requires=['scikit-learn', 'numpy', 'pandas', 'seaborn', 'matplotlib'],
     keywords=['python', 'data', 'preprocessing', 'data science', 'data analysis', 'machine learning'],
     classifiers=[
         "Development Status :: 1 - Planning",
