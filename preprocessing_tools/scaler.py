@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from _utils import *
+from ._utils import *
 
 
 class MinMaxScaler(ScalerMixin):
