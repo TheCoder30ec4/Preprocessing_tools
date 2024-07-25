@@ -2,10 +2,7 @@ import pandas as pd
 
 class DataEncoding:
 
-    def __init__(self):
-        pass
-
-
+    
     def label_encode(self, data: pd.DataFrame, columns: list) -> pd.DataFrame: 
         
         if not isinstance(data, pd.DataFrame):
@@ -20,12 +17,14 @@ class DataEncoding:
     
 
     def one_hot_encode(self, data: pd.DataFrame, columns: list) -> pd.DataFrame:
-        
         if not isinstance(data, pd.DataFrame):
             raise ValueError("Input data must be a pandas DataFrame.")
-        
-        return pd.get_dummies(data, columns=columns)
     
+        data = pd.get_dummies(data, columns=columns)
+        data = data.astype(int)
+    
+        return data
+
 
     def ordinal_encode(self, data: pd.DataFrame, columns: list, categories: dict) -> pd.DataFrame:
         
